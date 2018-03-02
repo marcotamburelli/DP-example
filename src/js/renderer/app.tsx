@@ -6,12 +6,9 @@ import { App, Item } from './domain';
 import { createElement } from './usecase/create-element';
 import { editElement } from './usecase/edit-element';
 
-function itemGenerator(editor: XLib.Container<Item>) {
+function itemGenerator(editor: XLib.Container<Item, HTMLDivElement>) {
   return (data: Item) => {
-    const element: XLib.ControlComponent<Item> = Element({
-      id: data.id,
-      onclick: () => editElement(element, editor)
-    });
+    const element = Element(editor, data.id);
 
     return element;
   };
@@ -19,7 +16,7 @@ function itemGenerator(editor: XLib.Container<Item>) {
 
 const editor = <Editor name="editor" id="editor" />;
 
-const app: XLib.Container<App> = (
+const app: XLib.Container<App, HTMLDivElement> = (
   <div class="app">
     <div>
       <h2>Items</h2>
