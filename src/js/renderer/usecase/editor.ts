@@ -3,7 +3,6 @@ import { Observable } from 'rxjs/Rx';
 
 import { EventType } from '../const';
 import { Item } from '../domain';
-import { Listener } from '../stream/listener';
 import { createNewItem, updateItem } from './element';
 
 export const newItem = (
@@ -13,7 +12,7 @@ export const newItem = (
   editor.setData({});
   editor.domNode.classList.remove('hidden');
 
-  const listener = Listener.create(Observable.from(editor.createObservable<Item>()));
+  const listener = XLib.listen(Observable.from(editor.createObservable<Item>()));
 
   listener.on(EventType.EXIT_EDITOR).execute(hideEditor(editor));
   listener.on(EventType.UPDATE_ITEM).execute(createNewItem(editor, list));
@@ -30,7 +29,7 @@ export const editItem = (
   editor.setData(element.getData());
   editor.domNode.classList.remove('hidden');
 
-  const listener = Listener.create(Observable.from(editor.createObservable<Item>()));
+  const listener = XLib.listen(Observable.from(editor.createObservable<Item>()));
 
   listener.on(EventType.EXIT_EDITOR).execute(hideEditor(editor));
   listener.on(EventType.UPDATE_ITEM).execute(updateItem(editor, element));
