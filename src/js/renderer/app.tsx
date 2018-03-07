@@ -2,9 +2,9 @@ import { XLib } from 'hello';
 
 import { Editor } from './component/editor';
 import { Element } from './component/element';
+import { EventType } from './const';
 import { App, Item } from './domain';
-import { createElement } from './usecase/create-element';
-import { editElement } from './usecase/edit-element';
+import { init } from './usecase/init';
 
 function itemGenerator(editor: XLib.Container<Item, HTMLDivElement>) {
   return (data: Item) => {
@@ -23,7 +23,7 @@ const app: XLib.Container<App, HTMLDivElement> = (
       <ul>
         <XLib.List id="list" name="items" generator={itemGenerator(editor)} />
         <li>
-          <button id="submit" type="button" onclick={() => createElement(editor, app.queryById('list'))}>add</button>
+          <button id="new" type="button" onclick={{ eventType: EventType.NEW_ITEM, emitter: () => null }}>add</button>
         </li>
       </ul>
     </div>
@@ -32,3 +32,5 @@ const app: XLib.Container<App, HTMLDivElement> = (
 );
 
 document.body.appendChild(app.domNode);
+
+init(app.queryById('new'), app.queryById('list'), editor);

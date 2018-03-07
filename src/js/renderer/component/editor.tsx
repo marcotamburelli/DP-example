@@ -6,6 +6,7 @@ import { Item } from '../domain';
 export function Editor({ id, name }) {
   var editor: XLib.Container<Item, HTMLDivElement> = (
     <div id={id} name="editor" class="editor hidden">
+      <div style="display: none" name="id" value-type="number">{id.toString()}</div>
       <h2>Add a new item</h2>
       <form >
         <div className="form-group">
