@@ -6,8 +6,8 @@ import { EventType } from './const';
 import { App, Item } from './domain';
 import { init } from './init';
 
-const itemGenerator = (editor: XLib.Container<Item, HTMLDivElement>) => (data: Item) => {
-  const element = Element(editor, data.id);
+const itemGenerator = (data: Item) => {
+  const element = Element(data.id);
 
   return element;
 };
@@ -19,7 +19,7 @@ const app: XLib.Container<App, HTMLDivElement> = (
     <div>
       <h2>Items</h2>
       <ul>
-        <XLib.List id="list" name="items" generator={itemGenerator(editor)} />
+        <XLib.List id="list" name="items" generator={itemGenerator} />
         <li>
           <button id="new" type="button" onclick={{ eventType: EventType.NEW_ITEM, emitter: () => ({}) }}>add</button>
         </li>

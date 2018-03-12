@@ -26,12 +26,9 @@ const hideEditor = (editor: XLib.ControlComponent<any, any>) => (payload) => {
 
 var idx = 0;
 
-const createOrUpdateItem = (
-  editor: XLib.Container<any, any>,
-  list: XLib.ListContainer<any>
-) => (payload: Item) => {
+const createOrUpdateItem = (editor: XLib.Container<any, any>, list: XLib.ListContainer<any>) => (payload: Item) => {
   if (payload.id == null) {
-    var element = Element(editor, payload.id);
+    var element = Element(payload.id);
 
     payload = { ...payload, id: ++idx };
     list.append(element);
