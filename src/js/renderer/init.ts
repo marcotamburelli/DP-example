@@ -11,8 +11,8 @@ export function init(button: XLib.ControlComponent<any, any>, list: XLib.ListCon
       .merge(Observable.from(list.createObservable<Item>()))
   );
 
-  mainListener.on(EventType.NEW_ITEM).execute((payload) => editor.setData({}));
-  mainListener.on(EventType.EDIT_ITEM).execute((item) => editor.setData(item));
+  mainListener.on(EventType.NEW_ITEM).execute(showEditor(editor));
+  mainListener.on(EventType.EDIT_ITEM).execute(showEditor(editor));
 
   const editorListener = XLib.listen(Observable.from(editor.createObservable()));
 
@@ -20,20 +20,26 @@ export function init(button: XLib.ControlComponent<any, any>, list: XLib.ListCon
   editorListener.on(EventType.UPDATE_ITEM).execute(createOrUpdateItem(editor, list));
 };
 
-const hideEditor = (editor: XLib.ControlComponent<any, any>) => (payload) => {
+const hideEditor = (editor: XLib.ControlComponent<Item, HTMLElement>) => (payload) => {
   editor.domNode.classList.add('hidden');
 };
 
 var idx = 0;
 
-const createOrUpdateItem = (editor: XLib.Container<any, any>, list: XLib.ListContainer<any>) => (payload: Item) => {
-  if (payload.id == null) {
-    var element = Element(payload.id);
+const showEditor = (editor: XLib.ControlComponent<Item, HTMLElement>) => (payload: Item) => {
+  editor.domNode.classList.remove('hidden');
+  editor.setData(payload);
+};
 
-    payload = { ...payload, id: ++idx };
+const createOrUpdateItem = (editor: XLib.Container<Item, HTMLElement>, list: XLib.ListContainer<Item>) => (payload: Item) => {
+  if (payload.id == null || isNaN(payload.id)) {
+    const id = ++idx;
+    var element = Element(id);
+
+    payload = { ...payload, id };
     list.append(element);
   } else {
-    element = list.queryById<XLib.ControlComponent<any, any>>(`item-${payload.id}`);
+    element = list.queryById<XLib.ControlComponent<Item, HTMLLIElement>>(`item-${payload.id}`);
   }
 
   element.setData(payload);
