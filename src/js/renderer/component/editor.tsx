@@ -1,10 +1,10 @@
-import { XLib } from 'hello';
+import { dp } from 'dp';
 
 import { EventType } from '../const';
 import { Item } from '../domain';
 
 export function Editor({ id, name }) {
-  var editor: XLib.Container<Item, HTMLDivElement> = (
+  var editor: dp.Container<Item, HTMLDivElement> = (
     <div id={id} name="editor" class="editor hidden">
       <div style="display: none" name="id" value-type="number">{id.toString()}</div>
       <h2>Add a new item</h2>

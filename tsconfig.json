@@ -5,7 +5,7 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
-    "jsxFactory": "XLib.define",
+    "jsxFactory": "dp.define",
     "sourceMap": true
   },
   "include": [

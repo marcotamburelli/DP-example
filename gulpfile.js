@@ -6,16 +6,11 @@ var browserify = require('browserify');
 var watchify = require('watchify');
 var babel = require('babelify');
 var tsify = require('tsify');
-// var transformJsx = require('babel-plugin-transform-react-jsx');
-// var jsxPragmatic = require('babel-plugin-jsx-pragmatic');
-// var uglify = require('gulp-uglify');
 
 function compile(watch) {
   var bundler = watchify(
     browserify('./src/js/renderer/app.tsx', { debug: true })
       .plugin(tsify, { target: 'es6' })
-      // .plugin(transformJsx, { pragma: 'XLib.define' })
-      // .plugin(jsxPragmatic, { module: 'hello', import: 'XLib' })
       .transform(babel, { presets: ['es2015'], extensions: ['.ts', '.tsx'] })
   );
 

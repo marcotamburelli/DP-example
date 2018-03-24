@@ -1,4 +1,4 @@
-import { XLib } from 'hello';
+import { dp } from 'dp';
 
 import { Editor } from './component/editor';
 import { Element } from './component/element';
@@ -14,12 +14,12 @@ const itemGenerator = (data: Item) => {
 
 const editor = <Editor name="editor" id="editor" />;
 
-const app: XLib.Container<App, HTMLDivElement> = (
+const app: dp.Container<App, HTMLDivElement> = (
   <div class="app">
     <div>
       <h2>Items</h2>
       <ul>
-        <XLib.List id="list" name="items" generator={itemGenerator} />
+        <dp.List id="list" name="items" generator={itemGenerator} />
         <li>
           <button id="new" type="button" onclick={{ eventType: EventType.NEW_ITEM, emitter: () => ({}) }}>add</button>
         </li>
