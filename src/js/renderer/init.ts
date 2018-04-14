@@ -24,17 +24,18 @@ const hideEditor = (editor: dp.Component<Item, HTMLElement>) => (payload) => {
   editor.domNode.classList.add('hidden');
 };
 
-var idx = 0;
-
 const showEditor = (editor: dp.Component<Item, HTMLElement>) => (payload: Item) => {
   editor.domNode.classList.remove('hidden');
   editor.setData(payload);
 };
 
 const createOrUpdateItem = (editor: dp.Container<Item, HTMLElement>, list: dp.ListContainer<Item>) => (payload: Item) => {
+  const listElements = list.getData();
+  const idx = listElements.reduce((max, { id }) => id > max ? id : max, 0);
+
   if (payload.id == null || isNaN(payload.id)) {
-    const id = ++idx;
-    var element = Element(id);
+    const id = idx + 1;
+    var element = Element();
 
     payload = { ...payload, id };
     list.append(element);

@@ -6,12 +6,6 @@ import { EventType } from './const';
 import { App, Item } from './domain';
 import { init } from './init';
 
-const itemGenerator = (data: Item) => {
-  const element = Element(data.id);
-
-  return element;
-};
-
 const editor = <Editor name="editor" id="editor" />;
 
 const app: dp.Container<App, HTMLDivElement> = (
@@ -19,15 +13,19 @@ const app: dp.Container<App, HTMLDivElement> = (
     <div>
       <h2>Items</h2>
       <ul>
-        <dp.List id="list" name="items" generator={itemGenerator} />
+        <dp.List id="list" name="items">
+          <Element />
+        </dp.List>
         <li>
-          <button id="new" type="button" onclick={{ eventType: EventType.NEW_ITEM, emitter: () => ({}) }}>add</button>
+          <button id="new" type="button" onclick={{ eventType: EventType.NEW_ITEM, emitter: () => ({ title: '' }) }}>add</button>
         </li>
       </ul>
     </div>
     {editor}
   </div>
 );
+
+app.setData({ editor: {}, items: [{ id: 1, title: 'default 1' }, { id: 2, title: 'default 2' }] });
 
 document.body.appendChild(app.domNode);
 
