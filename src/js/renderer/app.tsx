@@ -29,4 +29,4 @@ app.setData({ editor: {}, items: [{ id: 1, title: 'default 1' }, { id: 2, title:
 
 document.body.appendChild(app.domNode);
 
-init(app.queryById('new'), app.queryById('list'), editor);
+init(app.queryById('new'), app.queryById('list'), app.queryById('editor'));
