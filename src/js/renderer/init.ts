@@ -18,7 +18,7 @@ export function init(button: dp.Component<any, any>, list: dp.ListContainer<any>
 
   editorListener.on(EventType.EXIT_EDITOR).execute(hideEditor(editor));
   editorListener.on(EventType.UPDATE_ITEM).execute(createOrUpdateItem(editor, list));
-};
+}
 
 const hideEditor = (editor: dp.Component<Item, HTMLElement>) => (payload) => {
   editor.domNode.classList.add('hidden');

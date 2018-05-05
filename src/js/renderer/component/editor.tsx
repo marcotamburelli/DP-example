@@ -4,7 +4,7 @@ import { EventType } from '../const';
 import { Item } from '../domain';
 
 export function Editor({ id, name }) {
-  var editor: dp.Container<Item, HTMLDivElement> = (
+  const editor: dp.Container<Item, HTMLDivElement> = (
     <div id={id} name={name} class="editor hidden">
       <div style="display: none" name="id" bind={dp.INT_BINDER}></div>
       <h2>Add a new item</h2>
