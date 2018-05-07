@@ -10,7 +10,7 @@ const connect = require('gulp-connect');
 
 const compile = (watch) => {
   const bundler = watchify(
-    browserify('./src/js/renderer/app.tsx', { debug: true })
+    browserify('./src/js/front/app.tsx', { debug: true })
       .plugin(tsify, { target: 'es6' })
       .transform(babel, { presets: ['env'], extensions: ['.ts', '.tsx'] })
   );
